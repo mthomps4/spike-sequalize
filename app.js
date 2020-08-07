@@ -17,6 +17,13 @@ app.get("/port", (req, res) => {
   res.json({ port });
 })
 
+app.get("/users", (req, res) => {
+  // Need to be connected to Database
+  // Need to use Users model for Users.find()
+  // const users = await Users.find()
+  // res.json({ users })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
