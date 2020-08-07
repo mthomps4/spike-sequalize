@@ -22,5 +22,9 @@ Up and Running Demo with Node, Express, and Sequelize.
 
 ## Database Models and Migrations
 
-- `yarn db:g:model`: this will...
-- `yarn db:g:migration`: this will...
+- `yarn db:g:model TABLE_NAME --attributes firstName:string,lastName:string`:
+  This will create a model with TABLE_NAME and given attributes.
+  > Note: attributes are required and NO space between comma.
+- `yarn db:g:migration AddEmailToUsers`:
+  This will create a migration file with up/down placeholders in [./migrations](./migrations). You'll enter any Postgres updates here, then update the model to reflect.
+  > Note: if this is a NEW table -- start with g:model

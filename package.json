@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r dotenv/config app.js",
-    "db:create": "yarn sequelize-cli db:create",
-    "db:g:model": "",
-    "db:g:migration": "",
-    "db:migrate": "",
+    "db:create": "sequelize-cli db:create",
+    "db:g:model": "sequelize-cli model:generate --name",
+    "db:g:migration": "sequelize-cli migration:generate --name",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:rollback": "sequelize-cli db:migrate:undo",
     "db:seed": ""
   },
   "author": "",
