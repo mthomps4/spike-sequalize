@@ -2,6 +2,16 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT;
 
+const {Sequelize} = require('sequelize');
+const config = require("./config/config");
+
+const environment = process.env.NODE_ENV || 'development';
+const dbConfig = config[environment];
+const sequelize = new Sequelize(dbConfig.url, dbConfig);
+
+const UserModel = require('./models/user')
+const User = UserModel(sequelize, Sequelize)
+
 app.get("/", (req, res) => {
   let message = "Hello World!";
   const shouldTransform = process.env.MESSAGE_STYLE === 'uppercase'
@@ -17,13 +27,19 @@ app.get("/port", (req, res) => {
   res.json({ port });
 })
 
-app.get("/users", (req, res) => {
-  // Need to be connected to Database
-  // Need to use Users model for Users.find()
-  // const users = await Users.find()
-  // res.json({ users })
+app.get("/api/users", async (req, res) => {
+  const users = await User.findAll();
+  res.json({ users })
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+    app.listen(port, () => {
+      console.log(`Example app listening at http://localhost:${port}`);
+    });
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });

@@ -5,11 +5,7 @@ const { DB_HOST, DB_USER, DB_PASS, DB_PORT, DB_URL, DB_NAME } = process.env;
 // HEROKU POSTGRES CONFIG
 module.exports = {
   development: {
-    host: DB_HOST,
-    port: DB_PORT,
-    username: DB_USER,
-    password: DB_PASS,
-    database: DB_NAME,
+    url: DB_URL,
     dialect: "postgres",
     dialectOptions: {
       ssl: {
