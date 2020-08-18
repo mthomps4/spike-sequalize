@@ -1,4 +1,10 @@
 'use strict';
+// same as App js -- would be a util later. 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const salt = bcrypt.genSaltSync(saltRounds);
+
+const hashPassword = (plainPassword) => bcrypt.hashSync(plainPassword, salt);
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -12,6 +18,9 @@ module.exports = {
      * }], {});
     */
 
+    const demoPassword = 'test1234'
+    const passwordHash = hashPassword(demoPassword);
+
     return await queryInterface.bulkInsert(
       "Users",
       [
@@ -19,6 +28,7 @@ module.exports = {
           firstName: "John",
           lastName: "Doe",
           email: "john@test.com",
+          passwordHash: passwordHash,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -26,6 +36,7 @@ module.exports = {
           firstName: "Matt",
           lastName: "Thompson",
           email: "matt@echobind.com",
+          passwordHash: passwordHash,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -33,6 +44,7 @@ module.exports = {
           firstName: "Mickey",
           lastName: "Martinez",
           email: "Mickey@echobind.com",
+          passwordHash: passwordHash,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
